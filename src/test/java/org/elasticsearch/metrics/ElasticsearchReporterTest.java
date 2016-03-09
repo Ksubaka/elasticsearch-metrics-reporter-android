@@ -233,7 +233,7 @@ public class ElasticsearchReporterTest extends ESIntegTestCase {
         Map<String, Object> hit = searchResponse.getHits().getAt(0).sourceAsMap();
         assertTimestamp(hit);
         assertKey(hit, "name", prefix + ".foo.bar");
-        assertKey(hit, "value", 1234);
+        assertKey(hit, "value_number", 1234);
         assertKey(hit, "host", "localhost");
     }
 
