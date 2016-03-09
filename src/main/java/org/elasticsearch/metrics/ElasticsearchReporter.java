@@ -188,6 +188,7 @@ public class ElasticsearchReporter extends ScheduledReporter {
 
         /**
          * Additional fields to be included for each metric
+         *
          * @param additionalFields
          * @return
          */
@@ -280,11 +281,11 @@ public class ElasticsearchReporter extends ScheduledReporter {
         if (!checkedForIndexTemplate) {
             checkForIndexTemplate();
         }
-        final long timestamp = clock.getTime() / 1000;
+        final long timestamp = clock.getTime();
 
         currentIndexName = index;
         if (indexDateFormat != null) {
-            currentIndexName += "-" + indexDateFormat.format(new Date(timestamp * 1000));
+            currentIndexName += "-" + indexDateFormat.format(new Date(timestamp));
         }
 
         try {

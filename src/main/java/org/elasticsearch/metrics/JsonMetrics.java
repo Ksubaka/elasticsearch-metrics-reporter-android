@@ -47,7 +47,7 @@ public class JsonMetrics {
         }
 
         public Date timestampAsDate() {
-            return new Date(timestamp * 1000);
+            return new Date(timestamp);
         }
 
         public T value() {
