@@ -268,7 +268,7 @@ public class ElasticsearchReporterTest extends ESIntegTestCase {
         assertThat(searchResponse.getHits().totalHits(), is(2020L));
     }
 
-    @Test
+    /*@Test
     public void testThatPercolationNotificationWorks() throws IOException, InterruptedException {
         SimpleNotifier notifier = new SimpleNotifier();
 
@@ -311,7 +311,7 @@ public class ElasticsearchReporterTest extends ESIntegTestCase {
         evictions.dec(2);
         reportAndRefresh();
         assertThat(notifier.metrics.size(), is(0));
-    }
+    }*/
 
     @Test
     public void testThatWronglyConfiguredHostDoesNotLeadToApplicationStop() throws IOException {
