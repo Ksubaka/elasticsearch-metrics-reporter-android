@@ -31,16 +31,10 @@ import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import static org.elasticsearch.metrics.JsonMetrics.JsonCounter;
-import static org.elasticsearch.metrics.JsonMetrics.JsonGauge;
-import static org.elasticsearch.metrics.JsonMetrics.JsonHistogram;
-import static org.elasticsearch.metrics.JsonMetrics.JsonMeter;
-import static org.elasticsearch.metrics.JsonMetrics.JsonTimer;
+import static org.elasticsearch.metrics.JsonMetrics.*;
 
 public class MetricsElasticsearchModule extends Module {
 
@@ -74,12 +68,21 @@ public class MetricsElasticsearchModule extends Module {
             final Object value;
             try {
                 value = gauge.value().getValue();
-                json.writeObjectField("value", value);
+                json.writeObjectField("value_" + typeValue(value), value);
             } catch (RuntimeException e) {
                 json.writeObjectField("error", e.toString());
             }
             writeAdditionalFields(additionalFields, json);
             json.writeEndObject();
+        }
+
+        private String typeValue(Object value) {
+            if (value instanceof String || value instanceof CharSequence) return "string";
+            if (value instanceof Number) return "number";
+            if (value instanceof Date) return "date";
+            if (value instanceof Boolean) return "boolean";
+            if (value instanceof BitSet) return "binary";
+            return "unknown";
         }
     }
 
