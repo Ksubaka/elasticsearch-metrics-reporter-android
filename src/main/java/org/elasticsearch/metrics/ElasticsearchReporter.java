@@ -59,7 +59,7 @@ public class ElasticsearchReporter extends ScheduledReporter {
         void onInfo(String message);
     }
 
-    public class ReporterListenerAdapter implements ReporterListener {
+    public static class ReporterListenerAdapter implements ReporterListener {
         @Override
         public void onSent() {
         }
